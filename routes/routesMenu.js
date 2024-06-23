@@ -16,7 +16,7 @@ router.get('/menu', (req, res) => {
 //For menu api enpoint
 router.post('/menuItems', async (req, res) => {
     try {
-
+        
         const data = req.body;
 
         const newMenuItem = new MenuItems(data);
