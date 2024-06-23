@@ -64,7 +64,7 @@ router.get('/person/:workType', async (req, res) => {
 })
 
 //For person api endpoint
-router.put('/person/:id' , async(req , res) =>{
+router.put('/personId/:id' , async(req , res) =>{
      try{
         const personId = req.params.id; // Extracting the id from the URL parameter
         const updatedPersonData = req.body; //Upload data for the person.
