@@ -1,2 +1,4 @@
+//This is used for ignoring the files that is not required.
+
 node_modules/
 .env
