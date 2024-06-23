@@ -59,7 +59,7 @@ router.put('/menu/:id' , async (req, res) =>{
 
         console.log("Data Updated Successfully !");
         res.status(200).json(response);
-
+        return ;
     }catch(err){
         console.log(err);
         res.status(500).json({error : 'Inernal Server Error  !'});
@@ -76,10 +76,12 @@ router.delete('/menu/:id' , async(req, res)=>{
 
         if(!response){
             res.status(200).json({messege : "Please check the id. It is not correct !"})
+            return ;
         }
 
         console.log("Deleted Sucessfully !");
         res.status(200).json(response);
+        return;
     }catch(err){
         console.log(err);
         res.status(500).json({error : 'Internal Server Error !'});

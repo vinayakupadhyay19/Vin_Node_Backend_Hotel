@@ -75,10 +75,12 @@ router.put('/person/:id' , async(req , res) =>{
 
         if(!response){
             res.status(404).json({error : 'Person not found'});
+            return;
         }
 
         console.log("Data Updated !");
         res.status(200).json({response});
+        return;
      }catch(err){
         console.log(err);
         res.status(500).json({error : 'Internal Server Error !'});
@@ -95,10 +97,12 @@ router.delete('/person/:id' , async(req, res) =>{
 
         if(!response){
             res.status(404).json({error : 'Person not found !'});
+            return;
         }
 
         console.log('Data Deleted !');
         res.status(200).json({messege : 'Data deleted successfully !'});
+        return;
 
     }catch(err){
         console.log(err);
