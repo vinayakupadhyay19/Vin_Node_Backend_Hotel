@@ -8,10 +8,19 @@ const menuRoute = require('./routes/routesMenu');
 require('dotenv').config();
 
 
+//Middleware function...
+const logRequest = (req , res , next) =>{
+    console.log(`[${new Date().toLocaleString()}] Request made to : ${req.originalUrl}`)
+    next(); //Move to next phase.
+} 
+
+
 
 
 const app = express();
 app.use(bodyParser.json());
+
+app.use(logRequest);
 
 //For person api enpoint
 app.get('/', (req, res) => {
