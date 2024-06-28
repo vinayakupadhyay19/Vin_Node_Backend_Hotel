@@ -1,8 +1,5 @@
 const express = require('express');
-
-
 const router = express.Router();
-
 const MenuItems = require('../models/menuItem');
 
 

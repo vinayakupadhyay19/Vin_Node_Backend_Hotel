@@ -1,63 +1,44 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const db = require('./db')
-const Person = require('./models/person');
-const MenuItems = require('./models/menuItem');
 const personRoute = require('./routes/routesPerson');
 const menuRoute = require('./routes/routesMenu');
+const passport = require('./auth');
+const db = require('./db');
 require('dotenv').config();
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
 
 
 
-//Middleware function...
+//Middleware function (Specifically used for logs of date and url)
 const logRequest = (req , res , next) =>{
     console.log(`[${new Date().toLocaleString()}] Request made to : ${req.originalUrl}`)
     next(); //Move to next phase.
 } 
 
+//app for express server
 const app = express();
+
+
+//use function of express server
 app.use(bodyParser.json());
-
 app.use(logRequest);
-
-passport.use(new LocalStrategy(async (username , password , done) =>{
-    //aunthentication logic here
-    try{
-        console.log('Received credentials from server : [','username : '+username, ' , password : '+password + ' ]');
-        const user = await Person.findOne({username : username});
-        if(!user){
-            return done(null , false , {message : 'Could not find this user'});
-        }
-
-        const isPasswordMatch = (user.password === password) ? true : false;
-        if(isPasswordMatch){
-            return done(null , user);
-        }else{
-            return done(null , false , {messege : 'Incorrect Password'} )
-        }
-    }catch(err){
-        return done(err);
-    }
-}))
-
-
 app.use(passport.initialize());
 
-//For person api enpoint
-app.get('/',passport.authenticate('local' , {session : false}),(req, res) => {
-    res.send('Hello node server how are you ?');
+
+//intializing passport middleware for authentication
+const localAuthMiddleware = passport.authenticate('local' , {session : false});
+
+//home api enpoint
+app.get('/',(req, res) => {
+    res.send('Hello node server how are you ?')
 });
 
-app.use('/', personRoute);
+
+//Using both api endpoints through roter in node.js
+app.use('/', localAuthMiddleware ,personRoute);
 app.use('/', menuRoute);
 
-//Hey now I am taking all the snapshot of our code through the help of Git..
-
-
+//listening on port http://localhost:3000 Port details
 const PORT = process.env.PORT;
-
 app.listen(PORT, () => {
     console.log('Server is running on port 3000');
 });

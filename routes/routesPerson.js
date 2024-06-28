@@ -1,11 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
 const Person = require('../models/person');
-
-
-
-
 
 //For person api enpoint
 router.post('/person', async (req, res) => {
@@ -110,6 +105,5 @@ router.delete('/person/:id' , async(req, res) =>{
     }
 
 });
-
 
 module.exports = router;
