@@ -3,7 +3,7 @@ const router = express.Router();
 const Person = require('../models/person');
 
 //For person api enpoint
-router.post('/person', async (req, res) => {
+router.post('/post', async (req, res) => {
     try {
         //Extract the data from the request.
         const data = req.body;
@@ -38,7 +38,7 @@ router.get('/getPersonData', async (req, res) => {
 
 
 //For person api enpoint
-router.get('/person/:workType', async (req, res) => {
+router.get('/:workType', async (req, res) => {
 
     try {
         const workType = req.params.workType;
@@ -59,7 +59,7 @@ router.get('/person/:workType', async (req, res) => {
 })
 
 //For person api endpoint
-router.put('/personId/:id' , async(req , res) =>{
+router.put('/:id' , async(req , res) =>{
      try{
         const personId = req.params.id; // Extracting the id from the URL parameter
         const updatedPersonData = req.body; //Upload data for the person.
@@ -84,7 +84,7 @@ router.put('/personId/:id' , async(req , res) =>{
 
 
 //For Person api endpoint
-router.delete('/person/:id' , async(req, res) =>{
+router.delete('/:id' , async(req, res) =>{
     try{
         const personId = req.params.id;
         

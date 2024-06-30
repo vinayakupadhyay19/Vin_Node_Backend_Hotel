@@ -4,7 +4,7 @@ const MenuItems = require('../models/menuItem');
 
 
 //For menu api endpoint
-router.get('/menu', (req, res) => {
+router.get('/', (req, res) => {
     res.send('Hello ! I am in menu page');
 });
 
@@ -43,7 +43,7 @@ router.get('/getAllMenu', async (req, res) => {
 
 //For menu api endpoint
 
-router.put('/menu/:id' , async (req, res) =>{
+router.put('/:id' , async (req, res) =>{
     try{
 
         const menuId = req.params.id;
@@ -65,7 +65,7 @@ router.put('/menu/:id' , async (req, res) =>{
 });
 
 //For menu api endpoint
-router.delete('/menu/:id' , async(req, res)=>{
+router.delete('/:id' , async(req, res)=>{
     try{
         const menuId = req.params.id;
 

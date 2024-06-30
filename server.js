@@ -34,8 +34,8 @@ app.get('/',(req, res) => {
 
 
 //Using both api endpoints through roter in node.js
-app.use('/', localAuthMiddleware ,personRoute);
-app.use('/', menuRoute);
+app.use('/person', localAuthMiddleware,personRoute);
+app.use('/menu', menuRoute);
 
 //listening on port http://localhost:3000 Port details
 const PORT = process.env.PORT;
