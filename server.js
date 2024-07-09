@@ -3,7 +3,9 @@ const bodyParser = require('body-parser');
 const personRoute = require('./routes/routesPerson');
 const menuRoute = require('./routes/routesMenu');
 const passport = require('./auth');
+const Person = require('./models/person');
 const db = require('./db');
+const { genToken, jwtAuthMiddleware } = require('./jwt');
 require('dotenv').config();
 
 
@@ -32,9 +34,34 @@ app.get('/',(req, res) => {
     res.send('Hello node server how are you ?')
 });
 
+//Api endpoint any person signup
+app.post('/person/signup', async (req, res) => {
+    try {
+        //Extract the data from the request.
+        const data = req.body;
+        //Create a new person documnet using  the Mongoose model.
+
+        const newPerson = new Person(data);
+
+        const savedPerson = await newPerson.save();
+
+        const payload = {
+            id : savedPerson.id,
+            username  : savedPerson.username
+        }
+        const token = genToken(payload);  
+        console.log('Saved.. !');
+        res.status(200).json({Data : savedPerson,Token : token});
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ error: 'Internal Server Error ' });
+    }
+});
+
 
 //Using both api endpoints through roter in node.js
-app.use('/person', localAuthMiddleware,personRoute);
+app.use('/person',personRoute);
 app.use('/menu', menuRoute);
 
 //listening on port http://localhost:3000 Port details

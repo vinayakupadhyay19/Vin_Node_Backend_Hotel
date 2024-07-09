@@ -10,6 +10,7 @@ passport.use(new LocalStrategy(async (username , password , done) =>{
         //console.log('Received credentials from server : [','username : '+username, ' , password : '+password + ' ]');
         const user = await Person.findOne({username : username});
         if(!user){
+            //console.log('User not found');
             return done(null , false , {message : 'Could not find this user'});
         }
 
